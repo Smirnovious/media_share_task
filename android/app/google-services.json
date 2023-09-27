@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "543906641564",
+    "project_id": "media-share-task",
+    "storage_bucket": "media-share-task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543906641564:android:2265ed4dcba2c5d59a5f59",
+        "android_client_info": {
+          "package_name": "com.example.media_share_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF5XcCa4YBLO8bUeEmUePPGlxW5K0nGYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
