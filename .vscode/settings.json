@@ -2,6 +2,7 @@
     "cSpell.words": [
         "autovalidate",
         "Firestore",
-        "Raleway"
+        "Raleway",
+        "riverpod"
     ]
 }

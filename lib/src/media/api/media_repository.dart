@@ -60,7 +60,7 @@ class MediaRepository {
     }
   }
 
-  // Upload File 
+  // Upload File
   void uploadFile(ref, context) async {
     final selectedFile = ref.watch(selectedFileProvider);
     final user = FirebaseAuth.instance.currentUser;
@@ -75,7 +75,7 @@ class MediaRepository {
       ref.read(uploadTaskProvider.notifier).state = firebaseReference.putFile(
         File(selectedFile.path!),
       );
-     
+
       // Do something when the upload task is complete
       await ref.read(uploadTaskProvider.notifier).state!.whenComplete(() async {
         // Get The Download Url
@@ -92,6 +92,10 @@ class MediaRepository {
         );
         // Close The Bottom Sheet
         GoRouter.of(context).pop();
+        if (selectedFile.name.endsWith('.mp4') ||
+            selectedFile.name.endsWith('.mov')) {
+          ref.read(showOnlyVideosProvider.notifier).state = true;
+        }
       });
     } catch (e) {
       showDialog(context: context, builder: (context) => ErrorDialog(e: e));

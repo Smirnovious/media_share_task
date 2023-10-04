@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:media_share_task/src/media/view/widgets/video_card.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../shared_pref.dart';
 
@@ -20,9 +22,7 @@ class _EditMediaScreenState extends ConsumerState<EditMediaScreen> {
       TextEditingController();
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         context.go('/');
@@ -45,9 +45,21 @@ class _EditMediaScreenState extends ConsumerState<EditMediaScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: CachedNetworkImage(imageUrl: widget.args[0])),
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: widget.args[1].toString().contains('mp4')
+                    ? VideoCard(
+                        videoPlayerController: VideoPlayerController.networkUrl(
+                            Uri.parse(widget.args[0])))
+                    : CachedNetworkImage(
+                        imageUrl: widget.args[0],
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(

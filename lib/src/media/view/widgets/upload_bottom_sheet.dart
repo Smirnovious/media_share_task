@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-
 import 'description_field.dart';
 import 'uploading_process.dart';
 import '../../providers/media_providers.dart';
@@ -23,7 +20,6 @@ class UploadBottomSheet extends ConsumerStatefulWidget {
 class _UploadBottomSheetState extends ConsumerState<UploadBottomSheet> {
   TextEditingController descriptionTextController = TextEditingController();
 
-
   @override
   void dispose() {
     super.dispose();
@@ -34,7 +30,7 @@ class _UploadBottomSheetState extends ConsumerState<UploadBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedFile = ref.watch(selectedFileProvider);
+  final selectedFile = ref.watch(selectedFileProvider);
     return StatefulBuilder(
       builder: (BuildContext context, _) {
         return SingleChildScrollView(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:media_share_task/src/media/view/widgets/filter_chips.dart';
+import 'package:media_share_task/src/media/view/widgets/safe_exit.dart';
 import '../../auth/providers/auth_providers.dart';
 import '../../common/main_app_bar.dart';
 import '../../shared_pref.dart';
@@ -70,41 +71,11 @@ class _MediaScreenState extends ConsumerState<MediaScreen> {
                 isDismissible: false,
                 context: context,
                 builder: (BuildContext context) {
-                  return WillPopScope(
-                    onWillPop: () async {
-                      final response = await showDialog<AppExitResponse>(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) => AlertDialog.adaptive(
-                          title: const Text(
-                              'Are you sure you want to quit the upload process?'),
-                          content:
-                              const Text('All unsaved progress will be lost.'),
-                          actions: [
-                            TextButton(
-                              child: const Text('Cancel'),
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pop(AppExitResponse.cancel);
-                              },
-                            ),
-                            TextButton(
-                              child: const Text('Ok'),
-                              onPressed: () {
-                                Navigator.of(context).pop(AppExitResponse.exit);
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-
-                      return response == AppExitResponse.exit;
-                    },
-                    child: const UploadBottomSheet(),
-                  );
+                  return const SafeExit(child: UploadBottomSheet(),);
                 });
           },
           child: const Icon(Icons.cloud_upload),
         ));
   }
 }
+

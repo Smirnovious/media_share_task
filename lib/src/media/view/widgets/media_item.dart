@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:media_share_task/src/shared_pref.dart';
 import 'package:video_player/video_player.dart';
-import '../../api/media_repository.dart';
 import '../../providers/media_providers.dart';
+import 'edit_and_delete_icons.dart';
 import 'image_card.dart';
 import 'video_card.dart';
 
@@ -60,51 +58,7 @@ class _MediaItemState extends ConsumerState<MediaItem> {
                           Uri.parse(widget.snapshot.data!.docs[widget.index]
                               ['downloadUrl'])))
                   : ImageCard(snapshot: widget.snapshot, index: widget.index)),
-          showIcons
-              ? Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: IconButton(
-                          onPressed: () {
-                            ref
-                                .read(mediaRepositoryProvider)
-                                .deleteMediaFromFirestore(
-                                    widget.snapshot.data!.docs[widget.index],
-                                    context);
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ),
-                      const Gap(10),
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: IconButton(
-                          onPressed: () {
-                            context.go('/editMedia', extra: [
-                              widget.snapshot.data!.docs[widget.index]
-                                  ['downloadUrl'],
-                              widget.snapshot.data!.docs[widget.index]
-                                  ['fileName']
-                            ]);
-                          },
-                          icon: const Icon(
-                            Icons.edit,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              : const SizedBox(),
+          showIcons ? EditAndDelIcons(mediaItem: widget) : const SizedBox(),
           Positioned(
             bottom: 10,
             left: 10,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 import '../../common/main_app_bar.dart';
 import '../providers/auth_providers.dart';
 import 'widgets/login_page.dart';
@@ -12,6 +13,7 @@ class AuthScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(authPageControllerProvider);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const PreferredSize(
